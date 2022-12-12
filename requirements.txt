@@ -1,0 +1,6 @@
+jupyter-book
+dplyr
+tidyr
+reshape2
+ggplot2
+gghighlight

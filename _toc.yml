@@ -1,0 +1,20 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+#format: jb-book
+#root: intro
+#parts:
+#    - caption: Example Analysis
+#    chapters:
+#    - file: data_import_process
+#  - file: data_visualisation
+#  ...
+
+format: jb-book
+root: markdown/intro.md
+options:
+  numbered: true 
+chapters:
+- file: markdown/degradomics
+- file: notebooks/data_import_process
+- file: notebooks/data_subset
