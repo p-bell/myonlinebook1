@@ -1,0 +1,721 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>2. Processing of mass spectrometry data &#8212; Analysis of semi-tryptic proteomics data</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Unlocking biological significance from the data" href="data_subset.html" />
+    <link rel="prev" title="1. Degradomics - the study of proteolytic processing" href="../markdown/degradomics.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/UBC_The-Overall-Lab-Web-Site_Protease-Web.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Analysis of semi-tryptic proteomics data</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../markdown/intro.html">
+                    Welcome to Degradomics analysis in Jupyter Lab
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../markdown/degradomics.html">
+   1. Degradomics - the study of proteolytic processing
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2. Processing of mass spectrometry data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="data_subset.html">
+   3. Unlocking biological significance from the data
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/data_import_process.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/data_import_process.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-required-r-packages-and-files-required-for-analysis">
+   2.1. Load required R packages and files required for analysis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#process-peptide-expression-data">
+   2.2. Process peptide expression data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#significance-testing">
+   2.3. Significance testing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generate-volcano-plot">
+   2.4. Generate volcano plot
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#downstream-analysis">
+   2.5. Downstream analysis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#irrelevant-formulae">
+   2.6. Irrelevant formulae
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Processing of mass spectrometry data</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-required-r-packages-and-files-required-for-analysis">
+   2.1. Load required R packages and files required for analysis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#process-peptide-expression-data">
+   2.2. Process peptide expression data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#significance-testing">
+   2.3. Significance testing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generate-volcano-plot">
+   2.4. Generate volcano plot
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#downstream-analysis">
+   2.5. Downstream analysis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#irrelevant-formulae">
+   2.6. Irrelevant formulae
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="processing-of-mass-spectrometry-data">
+<h1><span class="section-number">2. </span>Processing of mass spectrometry data<a class="headerlink" href="#processing-of-mass-spectrometry-data" title="Permalink to this headline">#</a></h1>
+<p>First, we take proteomics data output from MS Fragger and TMTintegrator,
+and perform significance testing for differentially expressed proteins and peptides</p>
+<section id="load-required-r-packages-and-files-required-for-analysis">
+<h2><span class="section-number">2.1. </span>Load required R packages and files required for analysis<a class="headerlink" href="#load-required-r-packages-and-files-required-for-analysis" title="Permalink to this headline">#</a></h2>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">#setwd(&quot;/Users/peterbell/conda_environments/assignment_8/my-book/&quot;)</span>
+
+<span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">reshape2</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">gghighlight</span><span class="p">)</span>
+<span class="c1"># import peptide level expression data</span>
+<span class="n">peptide</span> <span class="o">=</span> <span class="nf">read.table</span><span class="p">(</span><span class="s">&quot;../data/abundance_peptide_None.tsv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;\t&#39;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<span class="c1"># import .psm.tsv file, to derive semi-tryptics</span>
+<span class="n">psm</span> <span class="o">=</span> <span class="nf">read.table</span><span class="p">(</span><span class="s">&quot;../data/psm.tsv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;\t&#39;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<span class="c1"># import protein expression data</span>
+<span class="n">protein</span> <span class="o">=</span> <span class="nf">read.table</span><span class="p">(</span><span class="s">&quot;../data/abundance_protein_MD.tsv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;\t&#39;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Attaching package: ‘dplyr’
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following objects are masked from ‘package:stats’:
+
+    filter, lag
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Attaching package: ‘reshape2’
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following object is masked from ‘package:tidyr’:
+
+    smiths
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in scan(file = file, what = what, sep = sep, quote = quote, dec = dec, :
+“EOF within quoted string”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in scan(file = file, what = what, sep = sep, quote = quote, dec = dec, :
+“number of items read is not a multiple of the number of columns”
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="process-peptide-expression-data">
+<h2><span class="section-number">2.2. </span>Process peptide expression data<a class="headerlink" href="#process-peptide-expression-data" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># impute 0 for all NA abundance values</span>
+<span class="c1"># note - column subsetting is based on 16-plex TMT</span>
+<span class="n">peptide</span><span class="p">[,</span> <span class="m">7</span><span class="o">:</span><span class="m">22</span><span class="p">][</span><span class="nf">is.na</span><span class="p">(</span><span class="n">peptide</span><span class="p">[,</span> <span class="m">7</span><span class="o">:</span><span class="m">22</span><span class="p">])]</span> <span class="o">&lt;-</span> <span class="m">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After imputation with 0 for NA values, generate histogram of peptide abundances to determine whether data is normally distributed. Note - imputation with 0 reasonable in this case; less valid where data from multiple TMT-plexes combined.</p>
+<p>Before proceeding to significance testing of abundance values, we should verify that the data are normally distributed</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># generate histogram of peptide abundances to determine whether data is normally distributed</span>
+<span class="n">peptide_trimmed</span> <span class="o">=</span> <span class="n">peptide</span><span class="p">[,</span><span class="m">1</span><span class="o">:</span><span class="m">21</span><span class="p">]</span>
+<span class="n">peptide_trimmed</span> <span class="o">=</span> <span class="nf">subset</span><span class="p">(</span><span class="n">peptide_trimmed</span><span class="p">,</span> <span class="n">select</span> <span class="o">=</span> <span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="n">sample_01</span><span class="p">,</span> <span class="n">sample_02</span><span class="p">,</span> <span class="n">sample_03</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">peptide_trimmed_melt</span> <span class="o">=</span> <span class="nf">melt</span><span class="p">(</span><span class="n">peptide_trimmed</span><span class="p">,</span> <span class="n">id.vars</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Index&quot;</span><span class="p">,</span> <span class="s">&quot;Gene&quot;</span><span class="p">,</span> <span class="s">&quot;ProteinID&quot;</span><span class="p">,</span> <span class="s">&quot;Peptide&quot;</span><span class="p">,</span>
+                        <span class="s">&quot;MaxPepProb&quot;</span><span class="p">,</span> <span class="s">&quot;ReferenceIntensity&quot;</span><span class="p">))</span>
+<span class="n">histogram_1</span> <span class="o">=</span> <span class="nf">hist</span><span class="p">(</span><span class="n">peptide_trimmed_melt</span><span class="o">$</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/data_import_process_8_0.png" src="../_images/data_import_process_8_0.png" />
+</div>
+</div>
+<figure class="align-default" id="crossref-key" style="width: 700px">
+<figcaption>
+<p><span class="caption-number">Fig. 2.1 </span><span class="caption-text">Histogram of log2 transformed peptide intensities</span><a class="headerlink" href="#crossref-key" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Should you wish to make a similar plot yourself, the relevant command is the built-in R command <code class="docutils literal notranslate"><span class="pre">hist</span></code>.</p>
+<p>The complete code to generate  from the input file <code class="docutils literal notranslate"><span class="pre">abundance_peptide_None.tsv</span></code>, is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>peptide = read.table(&quot;../data/abundance_peptide_None.tsv&quot;, sep=&#39;\t&#39;, header = TRUE)
+peptide_trimmed = peptide[,1:21]
+peptide_trimmed = subset(peptide_trimmed, select = -c(sample_01, sample_02, sample_03) )
+peptide_trimmed_melt = melt(peptide_trimmed, id.vars=c(&quot;Index&quot;, &quot;Gene&quot;, &quot;ProteinID&quot;, &quot;Peptide&quot;,
+                        &quot;MaxPepProb&quot;, &quot;ReferenceIntensity&quot;))
+histogram_1 = hist(peptide_trimmed_melt$value)
+</pre></div>
+</div>
+<p>Now that we are confident that log2 tranformed peptide abundance data are normally distributed, we can perform significance testing for differences between peptide abundances derived from SARS-CoV-2 infected cells vs controls</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate mean abundance for each condition</span>
+<span class="n">peptide</span><span class="o">$</span><span class="n">control_mean</span> <span class="o">=</span> <span class="nf">rowMeans</span><span class="p">(</span><span class="n">peptide</span><span class="p">[</span> <span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">14</span><span class="p">,</span> <span class="m">16</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">20</span><span class="p">)])</span>
+<span class="n">peptide</span><span class="o">$</span><span class="n">sarscov2_mean</span> <span class="o">=</span> <span class="nf">rowMeans</span><span class="p">(</span><span class="n">peptide</span><span class="p">[</span> <span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">11</span><span class="p">,</span> <span class="m">13</span><span class="p">,</span> <span class="m">15</span><span class="p">,</span> <span class="m">17</span><span class="p">,</span> <span class="m">19</span><span class="p">,</span> <span class="m">21</span><span class="p">)])</span>
+
+<span class="c1"># calculate ratio of abundance note minus because log</span>
+<span class="n">peptide</span><span class="o">$</span><span class="n">sarscov2_control_ratio</span> <span class="o">=</span> <span class="n">peptide</span><span class="o">$</span><span class="n">sarscov2_mean</span> <span class="o">-</span> <span class="n">peptide</span><span class="o">$</span><span class="n">control_mean</span>
+
+<span class="c1"># perform statistical test for differential expression</span>
+<span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">peptide</span><span class="p">))</span> <span class="p">{</span>
+  <span class="n">tmp_ttest</span> <span class="o">=</span> <span class="nf">t.test</span><span class="p">(</span><span class="n">peptide</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">14</span><span class="p">,</span> <span class="m">16</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">20</span><span class="p">)],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">peptide</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">11</span><span class="p">,</span> <span class="m">13</span><span class="p">,</span> <span class="m">15</span><span class="p">,</span> <span class="m">17</span><span class="p">,</span> <span class="m">19</span><span class="p">,</span> <span class="m">21</span><span class="p">)])</span> 
+  <span class="c1">#print(tmp_ttest$p.value)</span>
+  <span class="n">peptide</span><span class="o">$</span><span class="n">p_value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp_ttest</span><span class="o">$</span><span class="n">p.value</span>
+<span class="p">}</span>
+
+<span class="c1"># correct for multiple testing</span>
+<span class="n">peptide</span><span class="o">$</span><span class="n">p_adj</span> <span class="o">=</span> <span class="nf">p.adjust</span><span class="p">(</span><span class="n">peptide</span><span class="o">$</span><span class="n">p_value</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s">&quot;BH&quot;</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nf">length</span><span class="p">(</span><span class="n">peptide</span><span class="o">$</span><span class="n">p_value</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="significance-testing">
+<h2><span class="section-number">2.3. </span>Significance testing<a class="headerlink" href="#significance-testing" title="Permalink to this headline">#</a></h2>
+<p>Next we want to determine which peptides do not possess 2 enzymatic termini; i.e. which peptides are ‘semi-tryptic’. Having derived a vector containing these peptide sequences, we append this information as a new column: <code class="docutils literal notranslate"><span class="pre">peptide$semi_tryptic</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># filter psm for semi-tryptic peptides</span>
+<span class="n">psm_semi_tryptic</span> <span class="o">=</span> <span class="n">psm</span> <span class="o">%&gt;%</span> <span class="nf">filter</span><span class="p">(</span><span class="n">Number.of.Enzymatic.Termini</span> <span class="o">!=</span> <span class="m">2</span><span class="p">)</span>
+<span class="c1"># derive a list of unique semi-tryptic peptides</span>
+<span class="n">psm_semi_tryptic_peptides</span> <span class="o">=</span> <span class="nf">unique</span><span class="p">(</span><span class="n">psm_semi_tryptic</span><span class="o">$</span><span class="n">Peptide</span><span class="p">)</span>
+
+<span class="c1"># filter peptide data frame for semi_tryptic_peptides</span>
+<span class="n">semi_indices</span> <span class="o">=</span> <span class="n">peptide</span><span class="o">$</span><span class="n">Peptide</span> <span class="o">%in%</span> <span class="n">psm_semi_tryptic_peptides</span>
+<span class="n">peptide_semi_tryptic</span> <span class="o">=</span> <span class="n">peptide</span><span class="p">[</span><span class="n">semi_indices</span><span class="p">,]</span>
+
+<span class="c1"># derive vector of semi-tryptic peptides</span>
+<span class="n">semi_tryptic_vector</span> <span class="o">=</span> <span class="n">peptide_semi_tryptic</span><span class="o">$</span><span class="n">Peptide</span>
+
+<span class="c1"># append column onto peptides detailing if peptide sequence</span>
+<span class="c1"># is semi-tryptic</span>
+
+<span class="n">peptide</span><span class="o">$</span><span class="n">semi_tryptic</span> <span class="o">=</span> <span class="n">peptide</span><span class="o">$</span><span class="n">Peptide</span> <span class="o">%in%</span> <span class="n">semi_tryptic_vector</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we perform significance testing for differences between peptide abundances derived from SARS-CoV-2 infected cells vs controls.
+Having derived a vector containing differentially expressed proteins (at FDR-controlled p &lt; 0.05, we append this information to <code class="docutils literal notranslate"><span class="pre">peptide</span></code> as a new column: <code class="docutils literal notranslate"><span class="pre">peptide$sig_protein</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># impute 0 for all NA abundance values</span>
+<span class="c1"># note - column subsetting is based on 16-plex</span>
+<span class="n">protein</span><span class="p">[,</span> <span class="m">6</span><span class="o">:</span><span class="m">21</span><span class="p">][</span><span class="nf">is.na</span><span class="p">(</span><span class="n">protein</span><span class="p">[,</span> <span class="m">6</span><span class="o">:</span><span class="m">21</span><span class="p">])]</span> <span class="o">&lt;-</span> <span class="m">0</span>
+
+<span class="c1"># calculate mean abundance for each condition</span>
+<span class="n">protein</span><span class="o">$</span><span class="n">control_mean</span> <span class="o">=</span> <span class="nf">rowMeans</span><span class="p">(</span><span class="n">protein</span><span class="p">[</span> <span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="m">11</span><span class="p">,</span> <span class="m">13</span><span class="p">,</span> <span class="m">15</span><span class="p">,</span> <span class="m">17</span><span class="p">,</span> <span class="m">19</span><span class="p">)])</span>
+<span class="n">protein</span><span class="o">$</span><span class="n">sarscov2_mean</span> <span class="o">=</span> <span class="nf">rowMeans</span><span class="p">(</span><span class="n">protein</span><span class="p">[</span> <span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">14</span><span class="p">,</span> <span class="m">16</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">20</span><span class="p">)])</span>
+
+<span class="c1"># calculate ratio of abundance</span>
+<span class="n">protein</span><span class="o">$</span><span class="n">sarscov2_control_ratio</span> <span class="o">=</span> <span class="n">protein</span><span class="o">$</span><span class="n">sarscov2_mean</span> <span class="o">/</span> <span class="n">protein</span><span class="o">$</span><span class="n">control_mean</span>
+
+<span class="c1"># perform statistical test for differential expression</span>
+<span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">nrow</span><span class="p">(</span><span class="n">protein</span><span class="p">))</span> <span class="p">{</span>
+  <span class="n">tmp_ttest</span> <span class="o">=</span> <span class="nf">t.test</span><span class="p">(</span><span class="n">protein</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="m">9</span><span class="p">,</span> <span class="m">11</span><span class="p">,</span> <span class="m">13</span><span class="p">,</span> <span class="m">15</span><span class="p">,</span> <span class="m">17</span><span class="p">,</span> <span class="m">19</span><span class="p">)],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">protein</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">14</span><span class="p">,</span> <span class="m">16</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">20</span><span class="p">)])</span> 
+  <span class="c1">#print(tmp_ttest$p.value)</span>
+  <span class="n">protein</span><span class="o">$</span><span class="n">p_value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp_ttest</span><span class="o">$</span><span class="n">p.value</span>
+<span class="p">}</span>
+
+<span class="c1"># correct for multiple testing</span>
+<span class="n">protein</span><span class="o">$</span><span class="n">p_adj</span> <span class="o">=</span> <span class="nf">p.adjust</span><span class="p">(</span><span class="n">protein</span><span class="o">$</span><span class="n">p_value</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s">&quot;BH&quot;</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nf">length</span><span class="p">(</span><span class="n">protein</span><span class="o">$</span><span class="n">p_value</span><span class="p">))</span>
+
+<span class="c1"># derive vector of significantly different proteins</span>
+<span class="n">sig_protein_vector</span> <span class="o">=</span> <span class="n">protein</span> <span class="o">%&gt;%</span> <span class="nf">filter</span><span class="p">(</span><span class="n">p_adj</span> <span class="o">&lt;</span> <span class="m">0.05</span><span class="p">)</span>
+<span class="n">sig_protein_vector</span> <span class="o">=</span> <span class="n">sig_protein_vector</span><span class="o">$</span><span class="n">Gene</span>
+
+<span class="c1"># append column onto peptides detailing if peptide sequence</span>
+<span class="c1"># is semi-tryptic</span>
+<span class="n">peptide</span><span class="o">$</span><span class="n">sig_protein</span> <span class="o">=</span> <span class="n">peptide</span><span class="o">$</span><span class="n">Gene</span> <span class="o">%in%</span> <span class="n">sig_protein_vector</span>
+
+<span class="c1"># derive vector of significantly different peptides</span>
+<span class="n">sig_peptide_vector</span> <span class="o">=</span> <span class="n">peptide</span> <span class="o">%&gt;%</span> <span class="nf">filter</span><span class="p">(</span><span class="n">p_adj</span> <span class="o">&lt;</span> <span class="m">0.05</span><span class="p">)</span>
+<span class="n">sig_peptide_vector</span> <span class="o">=</span> <span class="n">sig_peptide_vector</span><span class="o">$</span><span class="n">Peptide</span>
+
+<span class="c1"># append column if peptide is significantly different in quantity</span>
+<span class="n">peptide</span><span class="o">$</span><span class="n">sig_peptide</span> <span class="o">=</span> <span class="n">peptide</span><span class="o">$</span><span class="n">Peptide</span> <span class="o">%in%</span> <span class="n">sig_peptide_vector</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="generate-volcano-plot">
+<h2><span class="section-number">2.4. </span>Generate volcano plot<a class="headerlink" href="#generate-volcano-plot" title="Permalink to this headline">#</a></h2>
+<p>Finally, we visualise the data with a volcano plot</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># volcano plot with annotation if semi tryptic and significantly different at protein level</span>
+<span class="n">g</span> <span class="o">&lt;-</span> <span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">peptide</span><span class="p">,</span> 
+            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">sarscov2_control_ratio</span><span class="p">,</span> <span class="n">y</span> <span class="o">=-</span><span class="nf">log10</span><span class="p">(</span><span class="n">p_adj</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="n">semi_tryptic</span><span class="p">,</span>
+                <span class="n">shape</span> <span class="o">=</span> <span class="n">sig_protein</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">sig_peptide</span><span class="p">))</span> <span class="o">+</span>
+  <span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">0.4</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">1.75</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">geom_hline</span><span class="p">(</span><span class="n">yintercept</span> <span class="o">=</span> <span class="m">1.3</span><span class="p">)</span> <span class="o">+</span>
+  <span class="c1">#gghighlight(sig_peptide) +</span>
+  <span class="c1">#xlim(-20,20) +</span>
+  <span class="nf">xlab</span><span class="p">(</span><span class="s">&quot;log2 fold change&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="nf">ylab</span><span class="p">(</span><span class="s">&quot;-log10 FDR-corrected p-value&quot;</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">theme_bw</span><span class="p">()</span> <span class="c1">#+</span>
+  <span class="c1">#theme(legend.position=&quot;none&quot;)</span>
+<span class="n">g</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message:
+“Removed 5 rows containing missing values (`geom_point()`).”
+</pre></div>
+</div>
+<img alt="../_images/data_import_process_20_1.png" src="../_images/data_import_process_20_1.png" />
+</div>
+</div>
+<figure class="align-default" id="id1" style="width: 700px">
+<figcaption>
+<p><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Volcano plot of log2(peptide fold change) vs -log10(adj p-value)</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Should you wish to make a similar plot yourself, you will need to use the ggplot package in R.</p>
+<p>The complete code to generate , is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">&lt;-</span> <span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">peptide</span><span class="p">,</span> 
+            <span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">sarscov2_control_ratio</span><span class="p">,</span> <span class="n">y</span> <span class="o">=-</span><span class="n">log10</span><span class="p">(</span><span class="n">p_adj</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="n">semi_tryptic</span><span class="p">,</span>
+                <span class="n">shape</span> <span class="o">=</span> <span class="n">sig_protein</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">sig_peptide</span><span class="p">))</span> <span class="o">+</span>
+  <span class="n">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mf">1.75</span><span class="p">)</span> <span class="o">+</span>
+  <span class="n">geom_hline</span><span class="p">(</span><span class="n">yintercept</span> <span class="o">=</span> <span class="mf">1.3</span><span class="p">)</span> <span class="o">+</span>
+  <span class="n">xlab</span><span class="p">(</span><span class="s2">&quot;log2 fold change&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">ylab</span><span class="p">(</span><span class="s2">&quot;-log10 FDR-corrected p-value&quot;</span><span class="p">)</span> <span class="o">+</span>
+  <span class="n">theme_bw</span><span class="p">()</span>
+<span class="n">g</span>
+</pre></div>
+</div>
+</section>
+<section id="downstream-analysis">
+<h2><span class="section-number">2.5. </span>Downstream analysis<a class="headerlink" href="#downstream-analysis" title="Permalink to this headline">#</a></h2>
+<p>In the next section, we’ll dig into a subset of the visualised data, to identify proteolytic processing events that may be relevant to COVID-19 pathogenesis.</p>
+<p>For now, we’ll introduce another experimental technique which can be used to validate proteomics analyses; the <strong>Western blot</strong></p>
+<figure class="align-default" id="western-blot">
+<a class="reference internal image-reference" href="../_images/western_blot-01.png"><img alt="../_images/western_blot-01.png" src="../_images/western_blot-01.png" style="height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Western blotting can be used to orthogonally validate findings from proteomics</span><a class="headerlink" href="#western-blot" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In <a class="reference internal" href="#western-blot"><span class="std std-numref">Fig. 2.3</span></a>, we can observe orthogonal experimental evidence for proteolytic cleavage of a substrate.</p>
+<figure class="align-default" id="another-western-blot">
+<a class="reference internal image-reference" href="../_images/another_western_blot-01.png"><img alt="../_images/another_western_blot-01.png" src="../_images/another_western_blot-01.png" style="height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.4 </span><span class="caption-text">Another Western blot; evidence of proteolyic cleavage</span><a class="headerlink" href="#another-western-blot" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In <a class="reference internal" href="#another-western-blot"><span class="std std-numref">Fig. 2.4</span></a>, we also observe evidence for proteolytic cleavage of a different substrate.</p>
+</section>
+<section id="irrelevant-formulae">
+<h2><span class="section-number">2.6. </span>Irrelevant formulae<a class="headerlink" href="#irrelevant-formulae" title="Permalink to this headline">#</a></h2>
+<p>Coming up with content that’s relevant and meets every criteria for the marking scheme is time-consuming. If the assignment is not getting marked based on content, here are a couple of formulae that are not directly relevant:</p>
+<p>Here’s one formula:</p>
+<div class="math notranslate nohighlight" id="equation-fma">
+<span class="eqno">(2.1)<a class="headerlink" href="#equation-fma" title="Permalink to this equation">#</a></span>\[f = ma\]</div>
+<p>And here’s another:</p>
+<div class="math notranslate nohighlight" id="equation-emc2">
+<span class="eqno">(2.2)<a class="headerlink" href="#equation-emc2" title="Permalink to this equation">#</a></span>\[e = mc^2\]</div>
+<p>Both <a class="reference internal" href="#equation-fma">(2.1)</a> and <a class="reference internal" href="#equation-emc2">(2.2)</a> aren’t directly relevant to this book. But they have been linked to the text.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            kernelName: "ir",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../markdown/degradomics.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">1. </span>Degradomics - the study of proteolytic processing</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="data_subset.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Unlocking biological significance from the data</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Peter Bell<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
